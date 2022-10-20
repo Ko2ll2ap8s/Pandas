@@ -1,0 +1,21 @@
+import pandas as pd
+df = pd.read_csv('visits.csv', sep = "\t")
+df.dtypes
+### меняем типы
+df['date_time'] = pd.to_datetime(df['date_time'], format='%Y%m%dT%H%M%S')
+df.head()
+### найдите количество заездов на АЗС.
+total_visits = df.shape[0]
+### сколько АЗС в данных
+total_stations = len(df['id'].unique())
+### Выведите минимальное и максимальное значения столбца date_time через пробел
+print(df['date_time'].min() , df['date_time'].max())
+### В переменную station_visits_per_day запишите среднее количество визитов на АЗС за день.
+total_days = 7
+station_visits_per_day = totla_visits / totla_stations / total_days
+### Посчитайте количество уникальных значений в столбце name.
+print(df.sort_values(by = 'name', ascending = False).value_counts('name').head(10))
+stat = df.pivot_table(index = 'name', values = 'time_spent')
+### Используйте параметр range, чтобы изучить распределение значений time_spent, 
+### находящихся в диапазоне от 0 до 1500. Количество корзин оставьте прежним — 100.
+print(df.time_spent.hist(bins=100, range = (0, 1500)))
